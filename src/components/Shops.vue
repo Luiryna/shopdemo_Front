@@ -191,7 +191,7 @@ export default {
 	  const payload = {
 	    name: this.editForm.name,
 	    address: this.editForm.address,
-	    read,
+	    id: this.editForm.id
 	  };
 	  this.updateShop(payload, this.editForm.id);
 	},

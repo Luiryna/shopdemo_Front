@@ -2,9 +2,9 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld';
 import Shops from '@/components/Shops';
-import Employees from '@/components/Employees';
+import Stocks from '@/components/Stocks';
 import Goods from '@/components/Goods';
-import Prices from '@/components/Prices';
+import GoodsInStock from '@/components/GoodsInStock';
 
 Vue.use(Router);
 
@@ -21,9 +21,9 @@ export default new Router({
       component: Shops,
     },
   {
-      path: '/employee',
-      name: 'Employees',
-      component: Employees,
+      path: '/stock',
+      name: 'Stocks',
+      component: Stocks,
     },
   {
       path: '/good',
@@ -31,9 +31,9 @@ export default new Router({
       component: Goods,
     },
   {
-      path: '/price',
-      name: 'Prices',
-      component: Prices,
+      path: '/goods_in_stock',
+      name: 'GoodsInStock',
+      component: GoodsInStock,
     },
   ],
 mode: 'history',

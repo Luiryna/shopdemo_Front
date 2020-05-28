@@ -6,13 +6,13 @@
           <router-link class="nav-link" to="/shop">Shops</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/employee">Employees</router-link>
+          <router-link class="nav-link" to="/stock">Stocks</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" to="/good">Goods</router-link>
         </li>
         <li class="nav-item">
-          <router-link class="nav-link" to="/price">Prices</router-link>
+          <router-link class="nav-link" to="/goods_in_stock">Goods in Stock</router-link>
         </li>
       </ul>
     </div>

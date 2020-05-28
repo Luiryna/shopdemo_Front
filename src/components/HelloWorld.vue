@@ -1,5 +1,11 @@
 <template>
   <div class="hello">
+    <img src="./../assets/spring-boot-vuejs-logo.png">
+    <h2>See the sources here: </h2>
+    <ul>
+      <li><a href="https://github.com/Luiryna/shopdemo_Front" target="_blank">github.com/Luiryna/shopdemo_Front</a></li>
+      <li><a href="https://github.com/Luiryna/shopdemo_REST" target="_blank">github.com/Luiryna/shopdemo_REST</a></li>
+    </ul>
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
@@ -88,7 +94,7 @@ export default {
   name: 'HelloWorld',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: 'Welcome to Your Vue.js powered Spring Boot App',
     };
   },
 };

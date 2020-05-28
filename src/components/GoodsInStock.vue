@@ -2,23 +2,25 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-10">
-        <h1>Prices</h1>
+        <h1>Goods in Stock</h1>
         <hr><br><br>
         <button type="button" class="btn btn-success btn-sm" v-b-modal.price-modal>Add Price</button>
         <br><br>
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">ID</th> 
-              <th scope="col">Shop ID</th>
+              <th scope="col">Stock ID</th>
+              <th scope="col">Good ID</th>
+              <th scope="col">Price</th>
               <th scope="col">Value</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(price, index) in prices" :key="index">
-              <td>{{ price.id }}</td>
-              <td>{{ price.shopId }}</td>
+              <td>{{ price.stockId }}</td>
+              <td>{{ price.goodId }}</td>
+              <td>{{ price.price }}</td>
               <td>{{ price.value }}</td>
               <td>
                 <button
@@ -45,17 +47,37 @@
          name="Add a new price"
          hide-footer>
   <b-form @submit="onSubmit" @reset="onReset" class="w-100">
-  <b-form-group id="form-shopId-group"
-                label="Shop ID:"
-                label-for="form-shopId-input">
-      <b-form-input id="form-shopId-input"
+  <b-form-group id="form-stockId-group"
+                label="Stock ID:"
+                label-for="form-stockId-input">
+      <b-form-input id="form-stockId-input"
                     type="text"
-                    v-model="addPriceForm.shopId"
+                    v-model="addPriceForm.stockId"
                     required
-                    placeholder="Enter Shop ID">
+                    placeholder="Enter Stock ID">
       </b-form-input>
     </b-form-group>
-    <b-form-group id="form-value-group"
+    <b-form-group id="form-goodId-group"
+                  label="Good ID:"
+                  label-for="form-goodId-input">
+        <b-form-input id="form-goodId-input"
+                      type="text"
+                      v-model="addPriceForm.goodId"
+                      required
+                      placeholder="Enter Good ID">
+        </b-form-input>
+      </b-form-group>
+      <b-form-group id="form-price-group"
+                  label="Price:"
+                  label-for="form-price-input">
+        <b-form-input id="form-price-input"
+                      type="text"
+                      v-model="addPriceForm.price"
+                      required
+                      placeholder="Enter Price">
+        </b-form-input>
+      </b-form-group>
+      <b-form-group id="form-value-group"
                   label="Value:"
                   label-for="form-value-input">
         <b-form-input id="form-value-input"
@@ -74,17 +96,37 @@
          name="Update"
          hide-footer>
   <b-form @submit="onSubmitUpdate" @reset="onResetUpdate" class="w-100">
-  <b-form-group id="form-shopId-edit-group"
-                label="shop ID:"
-                label-for="form-shopId-edit-input">
-      <b-form-input id="form-shopId-edit-input"
+  <b-form-group id="form-stockId-edit-group"
+                label="stock ID:"
+                label-for="form-stockId-edit-input">
+      <b-form-input id="form-stockId-edit-input"
                     type="text"
-                    v-model="editForm.shopId"
+                    v-model="editForm.stockId"
                     required
-                    placeholder="Enter Shop ID">
+                    placeholder="Enter Stock ID">
       </b-form-input>
     </b-form-group>
-    <b-form-group id="form-value-edit-group"
+    <b-form-group id="form-goodId-edit-group"
+                  label="goodId:"
+                  label-for="form-goodId-edit-input">
+        <b-form-input id="form-goodId-edit-input"
+                      type="text"
+                      v-model="editForm.goodId"
+                      required
+                      placeholder="Enter goodId">
+        </b-form-input>
+      </b-form-group>
+      <b-form-group id="form-price-edit-group"
+                  label="price:"
+                  label-for="form-price-edit-input">
+        <b-form-input id="form-price-edit-input"
+                      type="text"
+                      v-model="editForm.price"
+                      required
+                      placeholder="Enter price">
+        </b-form-input>
+      </b-form-group>
+      <b-form-group id="form-value-edit-group"
                   label="value:"
                   label-for="form-value-edit-input">
         <b-form-input id="form-value-edit-input"
@@ -110,18 +152,22 @@ export default {
     return {
       prices: [],
 	addPriceForm: {
-        shopId: '',
+        stockId: '',
+        goodId: '',
+        price: '',
         value: '',
       },
 	editForm: {
-	  shopId: '',
-	  value: '',
+	  stockId: '',
+    goodId: '',
+    price: '',
+    value: '',
 	},
     };
   },
   methods: {
     getPrices() {
-      const path = 'http://localhost:8081/api/price/all';
+      const path = 'http://localhost:8081/api/goods_in_stock/all';
       axios.get(path)
         .then((res) => {
           this.prices = res.data;
@@ -132,7 +178,7 @@ export default {
         });
     },
   addPrice(payload) {
-      const path = 'http://localhost:8081/api/price/create'; 
+      const path = 'http://localhost:8081/api/goods_in_stock/create'; 
       axios.post(path, payload)
         .then(() => {
           this.getPrices();
@@ -144,7 +190,7 @@ export default {
         });
     },
 	updatePrice(payload, priceID) {
-	  const path = `http://localhost:8081/api/price/update`; //доделать
+	  const path = `http://localhost:8081/api/goods_in_stock/update`; //доделать
 	  axios.put(path, payload)
 	    .then(() => {
 	      this.getPrices();
@@ -162,16 +208,22 @@ export default {
 	  this.getPrices();
 	},
     initForm() {
-      this.addPriceForm.shopId = '';
+      this.addPriceForm.stockId = '';
+      this.addPriceForm.goodId = '';
+      this.addPriceForm.price = '';
       this.addPriceForm.value = '';
-	this.editForm.shopId = '';
-	this.editForm.value = '';
+	this.editForm.stockId = '';
+  this.editForm.goodId = '';
+  this.editForm.price = '';
+  this.editForm.value = '';
     },
     onSubmit(evt) {
       evt.preventDefault();
       this.$refs.addPriceModal.hide();
       const payload = {
-        shopId: this.addPriceForm.shopId,
+        stockId: this.addPriceForm.stockId,
+        goodId: this.addPriceForm.goodId,
+        price: this.addPriceForm.price,
         value: this.addPriceForm.value,
       };
       this.addPrice(payload);
@@ -189,14 +241,16 @@ export default {
 	  evt.preventDefault();
 	  this.$refs.editPriceModal.hide();
 	  const payload = {
-	    shopId: this.editForm.shopId,
-	    value: this.editForm.value,
-	    read,
+	    stockId: this.editForm.stockId,
+      goodId: this.editForm.goodId,
+      price: this.editForm.price,
+      value: this.editForm.value,
+	    id: this.editForm.id
 	  };
 	  this.updatePrice(payload, this.editForm.id);
 	},
 	removePrice(priceID) {
-	  const path = `http://localhost:8081/api/price/${priceID}/delete`;
+	  const path = `http://localhost:8081/api/goods_in_stock/${priceID}/delete`;
 	  axios.delete(path)
 	    .then(() => {
 	      this.getPrices();
